@@ -20,6 +20,7 @@ Route.group(() => {
   Route.post('auth/register', 'UserController.register');
   Route.post('auth/login', 'UserController.login');
 
-  Route.get('projects', 'ProjectController.index').middleware('auth');
-  Route.post('projects', 'ProjectController.create').middleware('auth');
+  Route.get('projects', 'ProjectController.index').middleware('auth'); //the user must be authenticated for get its projects
+  Route.post('projects', 'ProjectController.create').middleware('auth'); //the user must be authenticated for create project
+  Route.delete('projects/:id', 'ProjectController.destroy').middleware('auth'); //the user must be authenticated for delete its projects
 }).prefix('api');

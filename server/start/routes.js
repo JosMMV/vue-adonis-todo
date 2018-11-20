@@ -23,4 +23,5 @@ Route.group(() => {
   Route.get('projects', 'ProjectController.index').middleware('auth'); //the user must be authenticated for get its projects
   Route.post('projects', 'ProjectController.create').middleware('auth'); //the user must be authenticated for create project
   Route.delete('projects/:id', 'ProjectController.destroy').middleware('auth'); //the user must be authenticated for delete its projects
+  Route.patch('projects/:id', 'ProjectController.update').middleware('auth'); //the user must be authenticated for update its projects
 }).prefix('api');

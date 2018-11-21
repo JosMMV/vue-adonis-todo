@@ -9,6 +9,7 @@ class TaskSchema extends Schema {
       table.increments()
       table.integer('project_id').unsigned().references('id').inTable('project')
       table.string('description', 255)
+      table.boolean('completed')
       table.timestamps()
     })
   }

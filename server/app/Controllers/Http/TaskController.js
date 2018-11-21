@@ -1,7 +1,7 @@
 'use strict'
 
 const Project = use('App/Models/Project');
-const Task = use('App/Models/Project');
+const Task = use('App/Models/Task');
 const AuthorizationService = use('App/Services/AuthorizationService');
 
 class TaskController {
@@ -24,6 +24,27 @@ class TaskController {
       description
     })
     await project.tasks().save(task);
+    return task;
+  }
+
+  async destroy({ auth, request, params }){
+    const user = await auth.getUser();
+    const { id } = params; //const id = params.id;
+    const task = await Task.find(id);
+    const project = await task.project().fetch(); //find the project associated to that task
+    AuthorizationService.verifyPermission(project, user);
+    await task.delete();
+    return task;
+  }
+
+  async update({ auth, request, params }){
+    const user = await auth.getUser();
+    const { id } = params; //const id = params.id;
+    const task = await Task.find(id);
+    const project = await task.project().fetch(); //find the project associated to that task
+    AuthorizationService.verifyPermission(project, user);
+    task.merge(request.only(['description', 'completed']));
+    await task.save();
     return task;
   }
 

@@ -11,6 +11,7 @@ async login({ request, auth }){
 
   async register( {request} ){
     const { email, password } = request.all()
+    console.log(email, password)
     await User.create({
       email, password, username: email
     });

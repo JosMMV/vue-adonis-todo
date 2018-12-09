@@ -8,6 +8,9 @@ export default{
     registerEmail: 'user3@gmail.com',
     registerPassword: '1234',
     registerError: null,
+    loginEmail: 'user3@gmail.com',
+    loginPassword: '1234',
+    loginError: null,
     token: null,
   },
   actions: {
@@ -21,10 +24,22 @@ export default{
         email: state.registerEmail,
         password: state.registerPassword,
       }).then(({ data }) => {
-        commit('setToken', data.token); // set value of token by the value of the response data
+        commit('setToken', data.token); // change value of token by the value of the response data
         router.push('/'); // then redirect to home
       }).catch(() => {
         commit('setRegisterError', 'An error has ocurred trying to create your account.');
+      });
+    },
+    login({ state, commit }): any {
+      commit('setLoginError', null); // set value of LoginError to null
+      return HTTP().post('/auth/login', { // return a post request to /auth/login with some parameters: email and password
+        email: state.loginEmail,
+        password: state.loginPassword,
+      }).then(({ data }) => {
+        commit('setToken', data.token); // change value of token by the value of the response data
+        router.push('/'); // then redirect to home
+      }).catch(() => {
+        commit('setLoginError', 'An error has ocurred trying to login.');
       });
     },
   },
@@ -45,6 +60,15 @@ export default{
     },
     setRegisterPassword(state: any, password: String) {
       state.registerPassword = password;
+    },
+    setLoginError(state: any, error: any) {
+      state.loginError = error;
+    },
+    setLoginEmail(state: any, email: String) {
+      state.loginEmail = email;
+    },
+    setLoginPassword(state: any, password: String) {
+      state.loginPassword = password;
     },
   },
 };

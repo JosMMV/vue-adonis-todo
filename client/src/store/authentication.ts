@@ -11,14 +11,18 @@ export default{
     token: null,
   },
   actions: {
+    logout({ commit }) {
+      commit('setToken', null); // set value of token to null
+      router.push('/login'); // then redirect to /login
+    },
     register({ state, commit }): any {
-      commit('setRegisterError', null);
-      return HTTP().post('/auth/register', {
+      commit('setRegisterError', null); // set value of registerError to null
+      return HTTP().post('/auth/register', { // return a post request to /auth/register with some parameters: email and password
         email: state.registerEmail,
         password: state.registerPassword,
       }).then(({ data }) => {
-        commit('setToken', data.token);
-        router.push('/');
+        commit('setToken', data.token); // set value of token by the value of the response data
+        router.push('/'); // then redirect to home
       }).catch(() => {
         commit('setRegisterError', 'An error has ocurred trying to create your account.');
       });

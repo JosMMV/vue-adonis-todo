@@ -1,64 +1,35 @@
 <template>
   <Panel title="Projects">
     <div class="project mt-2" v-for="project in projects" :key="project.id">
-      <v-layout>
-        <v-flex xs9 class="text-xs-left">
-          <span
-            v-if="!project.isEditMode"
-          >
-            {{project.tittle}}
-          </span>
-          <v-text-field
-            autofocus
-            v-if="project.isEditMode"
-            :value="project.tittle "
-            @keyup.enter="saveProject(project)"
-            @input="setProjectTitle({project, title: $event})"
-          />
-        </v-flex>
-        <v-flex xs3>
-          <v-icon
-            v-if="!project.isEditMode"
-            @click="setEditMode({project, value: true})"
-          >edit</v-icon>
-          <v-icon
-            v-if="project.isEditMode"
-            @click="saveProject(project)"
-          >check</v-icon>
-          <v-icon
-            class="pl-2"
-            v-if="!project.isEditMode"
-            @click="deleteProject(project)"
-          >delete</v-icon>
-        </v-flex>
-      </v-layout>
+      <EditableRecord
+        :isEditMode="project.isEditMode"
+        :title="project.tittle"
+        @onSetTitle="setProjectTitle({project, title: $event})"
+        @onEdit="setEditMode({project, value: true})"
+        @onCheck="saveProject(project)"
+        @onDelete="deleteProject(project)"
+      />
     </div>
-    <v-layout row wrap class="mt-4">
-      <v-flex xs8>
-        <v-text-field
-          placeholder="My project name..."
-          @input="setNewProjectName"
-          :value="newProjectName"
-            @keyup.enter="createProject"
-        />
-      </v-flex>
-      <v-flex xs4>
-        <v-btn class="mt-2" dark color="green" @click="createProject">
-          <v-icon class="mr-2">add_circle</v-icon>
-          Create
-        </v-btn>
-      </v-flex>
-    </v-layout>
+    <CreateRecord
+      placeholder="My project name..."
+      :value="newProjectName"
+      @onInput="setNewProjectName"
+      @create="createProject"
+    />
   </Panel>
 </template>
 
 <script>
 import Panel from '@/components/Panel.vue';
+import CreateRecord from '@/components/CreateRecord.vue';
+import EditableRecord from '@/components/EditableRecord.vue';
 import { mapMutations, mapState, mapActions } from 'vuex';
 
 export default {
   components: {
     Panel,
+    CreateRecord,
+    EditableRecord,
   },
   mounted() {
     this.fetchProjects();

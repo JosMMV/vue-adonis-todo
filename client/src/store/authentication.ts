@@ -14,7 +14,8 @@ export default{
     token: null,
   },
   actions: {
-    logout({ commit }: any) {
+    logout({ commit, rootState }: any) {
+      // rootState.projects.currentProject = null;
       commit('setToken', null); // set value of token to null
       router.push('/login'); // then redirect to /login
     },

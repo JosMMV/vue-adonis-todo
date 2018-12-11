@@ -7,6 +7,7 @@ export default{
   state: {
     projects: [],
     newProjectName: null,
+    currentProject: null,
   },
   actions: {
     deleteProject({ commit }: any, project: any): any {
@@ -39,6 +40,9 @@ export default{
   getters: {
   },
   mutations: {
+    setCurrentProject(state: any, project: any) {
+      state.currentProject = project;
+    },
     setNewProjectName(state: any, name: String) {
       state.newProjectName = name;
     },

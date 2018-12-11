@@ -8,7 +8,7 @@
         @onEdit="setEditMode({project, value: true})"
         @onCheck="saveProject(project)"
         @onDelete="deleteProject(project)"
-        @currentProject="setCurrentProject(project)"
+        @currentProject="projectClicked(project)"
       />
     </div>
     <CreateRecord
@@ -42,6 +42,10 @@ export default {
     ]),
   },
   methods: {
+    projectClicked(project) {
+      this.setCurrentProject(project);
+      this.fetchTasks(project);
+    },
     ...mapMutations('projects', [
       'setNewProjectName',
       'setEditMode',
@@ -53,6 +57,9 @@ export default {
       'fetchProjects',
       'saveProject',
       'deleteProject',
+    ]),
+    ...mapActions('tasks', [
+      'fetchTasks',
     ]),
   },
 };

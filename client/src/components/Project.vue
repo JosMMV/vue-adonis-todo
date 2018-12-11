@@ -8,6 +8,7 @@
         @onEdit="setEditMode({project, value: true})"
         @onCheck="saveProject(project)"
         @onDelete="deleteProject(project)"
+        @currentProject="setCurrentProject(project)"
       />
     </div>
     <CreateRecord
@@ -45,6 +46,7 @@ export default {
       'setNewProjectName',
       'setEditMode',
       'setProjectTitle',
+      'setCurrentProject',
     ]),
     ...mapActions('projects', [
       'createProject',

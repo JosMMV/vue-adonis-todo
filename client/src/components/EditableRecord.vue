@@ -2,7 +2,9 @@
   <v-layout>
     <v-flex xs9 class="text-xs-left">
       <span
+        class="cursor"
         v-if="!isEditMode"
+        @click="$emit('currentProject')"
       >
         {{title}}
       </span>
@@ -42,5 +44,7 @@ export default {
 </script>
 
 <style>
-
+.cursor{
+  cursor: pointer;
+}
 </style>

@@ -25,6 +25,11 @@
             v-if="project.isEditMode"
             @click="saveProject(project)"
           >check</v-icon>
+          <v-icon
+            class="pl-2"
+            v-if="!project.isEditMode"
+            @click="deleteProject(project)"
+          >delete</v-icon>
         </v-flex>
       </v-layout>
     </div>
@@ -34,6 +39,7 @@
           placeholder="My project name..."
           @input="setNewProjectName"
           :value="newProjectName"
+            @keyup.enter="createProject"
         />
       </v-flex>
       <v-flex xs4>
@@ -73,6 +79,7 @@ export default {
       'createProject',
       'fetchProjects',
       'saveProject',
+      'deleteProject',
     ]),
   },
 };
@@ -80,7 +87,7 @@ export default {
 
 <style>
 .project{
-  font-size: 24px;
+  font-size: 22px;
 }
 
 .v-icon{

@@ -9,6 +9,12 @@ export default{
     newProjectName: null,
   },
   actions: {
+    deleteProject({ commit }: any, project: any): any {
+      return HTTP().delete(`projects/${project.id}`)
+        .then(() => {
+          commit('removeProject', project);
+        });
+    },
     saveProject({ commit }: any, project: any): any {
       return HTTP().patch(`projects/${project.id}`, project)
         .then(() => {
@@ -47,6 +53,9 @@ export default{
     },
     setEditMode(state: any, { project, value }: any) {
       Vue.set(project, 'isEditMode', value);
+    },
+    removeProject(state: any, project: any) {
+      state.projects.splice(state.projects.indexOf(project), 1);
     },
   },
 };

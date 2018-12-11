@@ -8,17 +8,17 @@ export default{
     registerEmail: 'user3@gmail.com',
     registerPassword: '1234',
     registerError: null,
-    loginEmail: 'user3@gmail.com',
-    loginPassword: '1234',
+    loginEmail: 'testing2@gmail.com',
+    loginPassword: '12346578',
     loginError: null,
     token: null,
   },
   actions: {
-    logout({ commit }) {
+    logout({ commit }: any) {
       commit('setToken', null); // set value of token to null
       router.push('/login'); // then redirect to /login
     },
-    register({ state, commit }): any {
+    register({ state, commit }: any): any {
       commit('setRegisterError', null); // set value of registerError to null
       return HTTP().post('/auth/register', { // return a post request to /auth/register with some parameters: email and password
         email: state.registerEmail,
@@ -30,7 +30,7 @@ export default{
         commit('setRegisterError', 'An error has ocurred trying to create your account.');
       });
     },
-    login({ state, commit }): any {
+    login({ state, commit }: any): any {
       commit('setLoginError', null); // set value of LoginError to null
       return HTTP().post('/auth/login', { // return a post request to /auth/login with some parameters: email and password
         email: state.loginEmail,

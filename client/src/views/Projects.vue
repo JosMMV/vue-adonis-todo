@@ -12,11 +12,11 @@
 </template>
 
 <script lang="ts">
+import { mapGetters, mapActions } from 'vuex';
 import Panel from '@/components/Panel.vue';
 import Project from '@/components/Project.vue';
 // eslint-disable-next-line
 import router from '../router';
-import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -25,7 +25,7 @@ export default {
   },
   mounted() {
     if (!this.isLoggedIn) {
-      return router.push('login');
+      return router.push('/login');
     }
     return this;
   },

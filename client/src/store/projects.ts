@@ -1,6 +1,6 @@
+import Vue from 'vue';
 // eslint-disable-next-line
 import HTTP from '../http';
-// import router from '../router';
 
 export default{
   namespaced: true,
@@ -9,7 +9,19 @@ export default{
     newProjectName: null,
   },
   actions: {
-    createProject({ commit, state }): any {
+    saveProject({ commit }: any, project: any): any {
+      return HTTP().patch(`projects/${project.id}`, project)
+        .then(() => {
+          commit('setEditMode', { project, value: false });
+        });
+    },
+    fetchProjects({ commit }: any): any {
+      return HTTP().get('projects/')
+        .then(({ data }) => {
+          commit('setProjects', data);
+        });
+    },
+    createProject({ commit, state }: any): any {
       return HTTP().post('projects/', {
         tittle: state.newProjectName,
       }).then(({ data }) => {
@@ -21,11 +33,20 @@ export default{
   getters: {
   },
   mutations: {
-    setNewProjectName(state: any, name: any) {
+    setNewProjectName(state: any, name: String) {
       state.newProjectName = name;
     },
-    appendProject(state: any, project: any) {
+    appendProject(state: any, project: object) {
       state.projects.push(project);
+    },
+    setProjects(state: any, projects: any) {
+      state.projects = projects;
+    },
+    setProjectTitle(state: any, { project, title }: any) {
+      project.tittle = title;
+    },
+    setEditMode(state: any, { project, value }: any) {
+      Vue.set(project, 'isEditMode', value);
     },
   },
 };

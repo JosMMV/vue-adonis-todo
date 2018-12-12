@@ -1,6 +1,7 @@
 <template>
-  <v-layout>
+  <v-layout row wrap>
     <v-flex xs9 class="text-xs-left">
+      <slot></slot>
       <span
         class="cursor"
         v-if="!isEditMode"

@@ -57,5 +57,8 @@ export default{
     removeTask(state: any, task: any) {
       state.tasks.splice(state.tasks.indexOf(task), 1);
     },
+    switchCompleted(state: any, task: any) {
+      task.completed = !task.completed;
+    },
   },
 };

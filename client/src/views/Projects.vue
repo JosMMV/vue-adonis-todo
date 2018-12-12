@@ -15,26 +15,15 @@
 import { mapGetters, mapActions, mapState } from 'vuex';
 import Project from '@/components/Project.vue';
 import Task from '@/components/Task.vue';
-// eslint-disable-next-line
-import router from '../router';
 
 export default {
   components: {
     Project,
     Task,
   },
-  mounted() {
-    if (!this.isLoggedIn) {
-      return router.push('/login');
-    }
-    return this;
-  },
   computed: {
     ...mapState('projects', [
       'currentProject',
-    ]),
-    ...mapGetters('authentication', [
-      'isLoggedIn',
     ]),
   },
 };

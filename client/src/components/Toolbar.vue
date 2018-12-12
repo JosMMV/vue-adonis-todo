@@ -26,8 +26,15 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex';
+import router from '../router';
 
 export default {
+  mounted() {
+    if (!this.isLoggedIn) {
+      return router.push('/login');
+    }
+    return this;
+  },
   computed: {
     ...mapGetters('authentication', [
       'isLoggedIn',

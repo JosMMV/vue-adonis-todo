@@ -14,7 +14,7 @@
       <v-btn flat v-if="!isLoggedIn">
         <v-icon class="mr-1">fingerprint</v-icon>Login
       </v-btn>
-      <v-btn flat v-if="isLoggedIn" @click="logout">
+      <v-btn flat v-if="isLoggedIn" @click="logoutAndSetCurrentProject">
         <v-icon class="mr-1">exit_to_app</v-icon>Logout
       </v-btn>
       <v-btn flat>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
   computed: {
@@ -37,6 +37,13 @@ export default {
     ...mapActions('authentication', [
       'logout',
     ]),
+    ...mapMutations('projects', [
+      'setCurrentProject',
+    ]),
+    logoutAndSetCurrentProject() {
+      this.logout();
+      this.setCurrentProject(null);
+    },
   },
 };
 </script>
